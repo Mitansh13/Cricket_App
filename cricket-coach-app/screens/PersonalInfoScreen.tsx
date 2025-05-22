@@ -1,0 +1,45 @@
+import React from 'react';
+import { View, Text, Image, ScrollView } from 'react-native';
+import { styles } from '../styles/PersonalInfoStyles';
+
+const PersonalInfoScreen = () => {
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.profileSection}>
+        <Image
+          source={require('../assets/images/boy.png')}
+          style={styles.profileImage}
+        />
+        <Text style={styles.name}>Coach Mit</Text>
+        <Text style={styles.role}>Head Coach</Text>
+      </View>
+
+      <View style={styles.infoSection}>
+        <View style={styles.infoItem}>
+          <Text style={styles.label}>Full Name:</Text>
+          <Text style={styles.value}>Mit Patel</Text>
+        </View>
+        <View style={styles.infoItem}>
+          <Text style={styles.label}>Role:</Text>
+          <Text style={styles.value}>Batting Coach</Text>
+        </View>
+        <View style={styles.infoItem}>
+          <Text style={styles.label}>Birthplace:</Text>
+          <Text style={styles.value}>Ahmedabad, India</Text>
+        </View>
+        <View style={styles.infoItem}>
+          <Text style={styles.label}>Experience:</Text>
+          <Text style={styles.value}>8 Years</Text>
+        </View>
+        <View style={styles.infoItem}>
+          <Text style={styles.label}>History:</Text>
+          <Text style={styles.value}>
+            Former domestic cricketer and current U-19 national team coach.
+          </Text>
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
+
+export default PersonalInfoScreen;

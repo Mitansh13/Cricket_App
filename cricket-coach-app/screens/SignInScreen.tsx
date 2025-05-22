@@ -1,0 +1,86 @@
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { styles } from "../styles/SignInStyles";
+import { validateSignIn } from "../js/siginValidation";
+
+export default function SignInScreen() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+ const handleLogin = () => {
+  const validationError = validateSignIn(email.trim(), password.trim());
+
+  if (validationError) {
+    setError(validationError);
+  } else {
+    setError(""); // <-- Clear the error here
+    console.log("Logging in...");
+    // Add navigation or API logic if needed
+  }
+};
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Welcome Back!</Text>
+
+      <View style={styles.card}>
+        <Text style={styles.title}>Login Account</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email Address"
+          placeholderTextColor="#6B7280"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          placeholderTextColor="#6B7280"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+
+        <View style={styles.rowBetween}>
+          <Text style={styles.rememberText}>Save Password</Text>
+          <TouchableOpacity onPress={() => router.push("/forgotpassword")}>
+            <Text style={styles.linkText}>Forgot Password</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Login Account</Text>
+        </TouchableOpacity>
+
+        {error ? (
+          <Text style={{ color: "red", textAlign: "center", marginBottom: 10 }}>{error}</Text>
+        ) : null}
+
+        <Text style={styles.orText}>Or Login with</Text>
+        <View style={styles.socialRow}>
+          <TouchableOpacity style={styles.socialButton}>
+            <AntDesign name="google" size={24} color="#DB4437" />
+            <Text style={styles.socialText}>Google</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.socialButton}>
+            <FontAwesome name="facebook" size={24} color="#1877F2" />
+            <Text style={styles.socialText}>Facebook</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <TouchableOpacity onPress={() => router.push("/signup")}>
+        <Text style={styles.footer}>
+          Do Not Have an Account?{" "}
+          <Text style={styles.linkText}>Create Account</Text>
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
